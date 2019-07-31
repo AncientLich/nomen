@@ -1,0 +1,51 @@
+CFLAGS=-fPIC -O2 -DWIN32 -D_MBCS -D_LIB -I. -I../lib -D_OPEN_BINARY -DHAVE_IO_H -DHAVE_FCNTL_H -DHAVE_STDARG_H -DHAVE_BASETSD_H
+REL=-DNDEBUG
+DEB=-D_DEBUG
+
+HEADERS=../lib/getarg.h ../lib/gif_hash.h ../lib/gif_lib.h ../lib/gif_lib_private.h
+
+OBJECTS=dev2gif.o \
+	dgif_lib.o \
+	egif_lib.o \
+	getarg.o \
+	gif_err.o \
+	gif_font.o \
+	gifalloc.o \
+	qprintf.o \
+	quantize.o \
+	gif_hash.o
+
+	
+giflib4.dll: $(OBJECTS)
+	gcc -shared -Wl,--out-implib,libgiflib4.a -o giflib4.dll $(OBJECTS)
+
+dev2gif.o: $(HEADERS) ../lib/dev2gif.c
+	gcc -c $(CFLAGS) $(REL) -o dev2gif.o ../lib/dev2gif.c
+	
+dgif_lib.o: $(HEADERS) ../lib/dgif_lib.c
+	gcc -c $(CFLAGS) $(REL) -o dgif_lib.o ../lib/dgif_lib.c
+	
+egif_lib.o: $(HEADERS) ../lib/egif_lib.c
+	gcc -c $(CFLAGS) $(REL) -o egif_lib.o ../lib/egif_lib.c
+	
+getarg.o: $(HEADERS) ../lib/getarg.c
+	gcc -c $(CFLAGS) $(REL) -o getarg.o ../lib/getarg.c
+	
+gif_err.o: $(HEADERS) ../lib/gif_err.c
+	gcc -c $(CFLAGS) $(REL) -o gif_err.o ../lib/gif_err.c
+
+gif_font.o: $(HEADERS) ../lib/gif_font.c
+	gcc -c $(CFLAGS) $(REL) -o gif_font.o ../lib/gif_font.c
+	
+gifalloc.o: $(HEADERS) ../lib/gifalloc.c
+	gcc -c $(CFLAGS) $(REL) -o gifalloc.o ../lib/gifalloc.c
+	
+qprintf.o: $(HEADERS) ../lib/qprintf.c
+	gcc -c $(CFLAGS) $(REL) -o qprintf.o ../lib/qprintf.c
+	
+quantize.o: $(HEADERS) ../lib/quantize.c
+	gcc -c $(CFLAGS) $(REL) -o quantize.o ../lib/quantize.c
+	
+gif_hash.o: $(HEADERS) ../lib/gif_hash.c
+	gcc -c $(CFLAGS) $(REL) -o gif_hash.o ../lib/gif_hash.c
+	
