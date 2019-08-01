@@ -41,7 +41,7 @@ IF(NOT WIN32)
    set(GIFLIB_LIB ${CMAKE_BINARY_DIR}/lib/3rd-party/giflib/lib/.libs/libgif.a)
 ELSE()
    set(GIFLIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/lib/3rd-party/giflib)
-   set(GIFLIB_LIB giflib4)
+   set(GIFLIB_LIB gif4)
 ENDIF()
 
 set(NOMEN_GIFSAVE_INCLUDEDIR ${CMAKE_CURRENT_SOURCE_DIR}/lib/NomenGifSave)
@@ -55,5 +55,4 @@ find_package(Qt5Widgets 5.2.0 REQUIRED)
 
 
 add_subdirectory(lib)
-
 

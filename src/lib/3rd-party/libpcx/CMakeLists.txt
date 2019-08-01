@@ -1,3 +1,9 @@
+# ------------------------------------
+#  This CMakeLists.txt was
+#  Written by Nobun, 2019
+#  mugenrebirth.forumfree.it
+# ------------------------------------
+
 project(qtpcx)
 
 

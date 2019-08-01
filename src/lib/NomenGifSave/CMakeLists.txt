@@ -2,18 +2,11 @@ project(NomenGifSave)
 
 
 
-if(NOT WIN32)
-   set(NOMEN_GIFSAVE_GIFLIB_INCLUDE
-       ${GIFLIB_SRC}
-       ${GIFLIB_SRC}/lib
-   )
-endif()
-
-
 set(NOMEN_GIFSAVE_INCLUDE_PATH
     ${CMAKE_CURRENT_BINARY_DIR} 
     ${CMAKE_CURRENT_SOURCE_DIR}
-    ${NOMEN_GIFSAVE_GIFLIB_INCLUDE}
+    ${GIFLIB_SRC}
+    ${GIFLIB_SRC}/lib
 )
 
 
@@ -22,10 +15,17 @@ set(NOMEN_GIFSAVE_INCLUDE_PATH
 # libraries
 # ---------------------------------------------------
 
-# ${PYTHON_LIBRARIES}
-set(NOMEN_GIFSAVE_LINK_LIBS
-    Qt5::Widgets
-)
+
+IF(WIN32)
+   set(NOMEN_GIFSAVE_LINK_LIBS
+       Qt5::Widgets
+       gif4
+   )
+ELSE()
+   set(NOMEN_GIFSAVE_LINK_LIBS
+       Qt5::Widgets
+   )
+ENDIF()
 
 
 # ---------------------------------------------------
@@ -34,7 +34,7 @@ set(NOMEN_GIFSAVE_LINK_LIBS
 
 
 IF(WIN32)
-    set(NOMEN_GIFSAVE_DEPS giflib4)
+    set(NOMEN_GIFSAVE_DEPS gif4)
 ELSE()
     set(NOMEN_GIFSAVE_DEPS giflib4_ext)
 ENDIF()
@@ -51,16 +51,15 @@ set(NOMEN_GIFSAVE_SRCS
  
 
 # -----------------------------------------
-#  appling settings
+#  applying settings
 # -----------------------------------------
 
 set(CMAKE_AUTOMOC ON)
 
 IF(WIN32)
-    message("WIN32")
-    add_library(NomenGifSave ${NOMEN_GIFSAVE_SRCS})
+    add_library(NomenGifSave SHARED ${NOMEN_GIFSAVE_SRCS})
+    set_target_properties(NomenGifSave PROPERTIES PREFIX "")
 ELSE()
-    message("NON-WIN32")
     add_library(NomenGifSave STATIC ${NOMEN_GIFSAVE_SRCS})
 ENDIF()
 
